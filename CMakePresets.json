@@ -1,0 +1,40 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 26,
+        "patch": 1
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default Config",
+            "description": "Default build for x86",
+            "binaryDir": "${sourceDir}/build/default"
+        },
+        {
+            "name": "android",
+            "displayName": "Android Config",
+            "description": "Android build",
+            "binaryDir": "${sourceDir}/build/android",
+            "inherits": "default",
+            "cacheVariables": {
+                "ANDROID_ABI": "arm64-v8a",
+                "ANDROID_STL": "c++_shared",
+                "ANDROID_PLATFORM": "31",
+                "CMAKE_TOOLCHAIN_FILE": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake",
+                "OpenCV_DIR": "${sourceDir}/prebuilt/opencv-4.8.0/sdk/native/jni"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "default",
+            "configurePreset": "default"
+        },
+        {
+            "name": "android",
+            "configurePreset": "android"
+        }
+    ]
+}
